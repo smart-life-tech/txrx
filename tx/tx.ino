@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
-#include "PinDefinitionsAndMore.h"  // Define macros for input and output pin etc.
+
+#define IR_SEND_PIN         3
 
 #define DISABLE_CODE_FOR_RECEIVER // Disables restarting receiver after each send. Saves 450 bytes program memory and 269 bytes RAM if receiving functions are not used.
 
@@ -16,10 +17,10 @@
 #define DELAY_AFTER_LOOP 500
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
 
 #if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/|| defined(USBCON) /*STM32_stm32*/|| defined(SERIALUSB_PID) || defined(ARDUINO_attiny3217)
-    delay(4000); // To be able to connect Serial monitor after reset or power up and before first print out. Do not wait for an attached Serial Monitor!
+    delay(1000); // To be able to connect Serial monitor after reset or power up and before first print out. Do not wait for an attached Serial Monitor!
 #endif
     // Just to know which program is running on my Arduino
     Serial.println(F("START " __FILE__ " from " __DATE__ "\r\nUsing library version " VERSION_IRREMOTE));

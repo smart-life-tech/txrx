@@ -1,7 +1,7 @@
 #include <IRremote.h>
 
 // Define the IR receiver pin
-int recvPin = 3;
+int recvPin = 2;
 
 // Define the LED pins
 int ledPins[] = {4, 5, 6, 7, 8}; // Adjust as needed
