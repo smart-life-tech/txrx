@@ -88,5 +88,5 @@ void loop()
     Serial.flush();
     IrSender.sendNEC2(sAddress, sCommand, sRepeats);
     delay(DELAY_AFTER_SEND);
-    IrSender.sendNEC(0x34895725, 32);
+   // IrSender.sendNEC(0x34895725, 32);
 }

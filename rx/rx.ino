@@ -7,12 +7,12 @@ int recvPin = 2;
 int ledPins[] = {4, 5, 6, 7, 8}; // Adjust as needed
 int ledOffPin = 9;               // Pin for "off" LED
 
-//IRrecv irrecv(recvPin);
-//decode_results results;
+// IRrecv irrecv(recvPin);
+// decode_results results;
 
 // Define the unique IR codes
-unsigned long irCodesOn[] = {0x1FE48B7, 0x10, 0x11, 0x12, 0x13, 0x14}; // Add more codes for each "on" transmitter
-unsigned long irCodeOff = 0x1FE58A7;                                   // Code for "off" transmitter
+unsigned long irCodesOn[] = {0x00, 0x10, 0x11, 0x12, 0x13, 0x14}; // Add more codes for each "on" transmitter
+unsigned long irCodeOff = 0x1FE58A7;                              // Code for "off" transmitter
 void handleData()
 {
     /*
@@ -42,17 +42,21 @@ void handleData()
     {
         if (IrReceiver.decodedIRData.command == irCodesOn[i])
         {
+            Serial.print("command received and mathed:");
+            Serial.println(IrReceiver.decodedIRData.command);
             digitalWrite(ledPins[i], HIGH);
         }
         else
         {
-            digitalWrite(ledPins[i], LOW);
+            // digitalWrite(ledPins[i], LOW);
         }
     }
 
     // Check if the received code matches the "off" code
     if (IrReceiver.decodedIRData.command == irCodeOff)
     {
+        Serial.print("command received and mathed off:");
+        Serial.println(IrReceiver.decodedIRData.command);
         for (int i = 0; i < 5; i++)
         {
             digitalWrite(ledPins[i], LOW);
@@ -95,7 +99,7 @@ void loop()
     if (IrReceiver.decode())
     {
         handleData();
-        unsigned long receivedCode = 0;//results.value;
+        unsigned long receivedCode = 0; // results.value;
 
         // Check if the received code matches any "on" code
         for (int i = 0; i < 5; i++)
