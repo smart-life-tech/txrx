@@ -1,25 +1,25 @@
 #include <Arduino.h>
 
-
-#define IR_SEND_PIN         3
+#define IR_SEND_PIN 3
 
 #define DISABLE_CODE_FOR_RECEIVER // Disables restarting receiver after each send. Saves 450 bytes program memory and 269 bytes RAM if receiving functions are not used.
 
-//#define EXCLUDE_EXOTIC_PROTOCOLS  // Saves around 240 bytes program memory if IrSender.write is used
-//#define SEND_PWM_BY_TIMER         // Disable carrier PWM generation in software and use (restricted) hardware PWM.
-//#define USE_NO_SEND_PWM           // Use no carrier PWM, just simulate an active low receiver signal. Overrides SEND_PWM_BY_TIMER definition
-//#define NO_LED_FEEDBACK_CODE      // Saves 566 bytes program memory
-//#define USE_OPEN_DRAIN_OUTPUT_FOR_SEND_PIN // Use or simulate open drain output mode at send pin. Attention, active state of open drain is LOW, so connect the send LED between positive supply and send pin!
+// #define EXCLUDE_EXOTIC_PROTOCOLS  // Saves around 240 bytes program memory if IrSender.write is used
+// #define SEND_PWM_BY_TIMER         // Disable carrier PWM generation in software and use (restricted) hardware PWM.
+// #define USE_NO_SEND_PWM           // Use no carrier PWM, just simulate an active low receiver signal. Overrides SEND_PWM_BY_TIMER definition
+// #define NO_LED_FEEDBACK_CODE      // Saves 566 bytes program memory
+// #define USE_OPEN_DRAIN_OUTPUT_FOR_SEND_PIN // Use or simulate open drain output mode at send pin. Attention, active state of open drain is LOW, so connect the send LED between positive supply and send pin!
 
 #include <IRremote.hpp>
 
 #define DELAY_AFTER_SEND 200
 #define DELAY_AFTER_LOOP 500
 
-void setup() {
+void setup()
+{
     Serial.begin(9600);
 
-#if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/|| defined(USBCON) /*STM32_stm32*/|| defined(SERIALUSB_PID) || defined(ARDUINO_attiny3217)
+#if defined(__AVR_ATmega32U4__) || defined(SERIAL_PORT_USBVIRTUAL) || defined(SERIAL_USB) /*stm32duino*/ || defined(USBCON) /*STM32_stm32*/ || defined(SERIALUSB_PID) || defined(ARDUINO_attiny3217)
     delay(1000); // To be able to connect Serial monitor after reset or power up and before first print out. Do not wait for an attached Serial Monitor!
 #endif
     // Just to know which program is running on my Arduino
@@ -58,7 +58,8 @@ uint8_t sCommand = 0x10;
 uint16_t s16BitCommand = 0x5634;
 uint8_t sRepeats = 0;
 
-void loop() {
+void loop()
+{
     /*
      * Print values
      */
@@ -87,4 +88,5 @@ void loop() {
     Serial.flush();
     IrSender.sendNEC2(sAddress, sCommand, sRepeats);
     delay(DELAY_AFTER_SEND);
+    IrSender.sendNEC(0x34895725, 32);
 }
