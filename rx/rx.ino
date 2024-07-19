@@ -11,8 +11,8 @@ int ledOffPin = 9;               // Pin for "off" LED
 // decode_results results;
 
 // Define the unique IR codes
-unsigned long irCodesOn[] = {0x00, 0x10, 0x11, 0x12, 0x13, 0x14}; // Add more codes for each "on" transmitter
-unsigned long irCodeOff = 0x1FE58A7;                              // Code for "off" transmitter
+unsigned long irCodesOn[] = {0x09, 0x10, 0x11, 0x12, 0x13, 0x14}; // Add more codes for each "on" transmitter
+unsigned long irCodeOff = 0x00;                              // Code for "off" transmitter
 void handleData()
 {
     /*
